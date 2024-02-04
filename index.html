@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-box">
+            <div>
+                <h1>Whether you are single or not</h1>
+                <img class="img2" src="./imgs/tkthao219-bubududu.gif" alt="">
+                <div class="btn-group">
+                    <button class="btn" id="movingButton1">Yes</button>
+                    <div style="width: 5rem;">
+                        <button class="btn" id="movingButton">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="model">
+        <div class="dialog-container">
+            <img class="img-1" src="./imgs/tkthao219-bubududu (2).gif" alt="" srcset="">
+
+            <h1>donon ek saath Single hee mar jaayenge😂🤣</h1>
+
+            <button class="btn" id="close">OK</button>
+            
+        </div>
+    </div>
+
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement("img");
+            heart.src = "https://pngimg.com/uploads/heart/heart_PNG51335.png";
+            heart.classList.add("heart");
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 2 + "s";
+
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        setInterval(createHeart, 200);
+
+        const movingButton = document.getElementById('movingButton');
+        const movingButton1 = document.getElementById('movingButton1');
+        const originalPosition = {
+            left: movingButton.style.left,
+            top: movingButton.style.top
+        };
+        movingButton.addEventListener('mouseover', () => {
+            moveButtonRandomly();
+        });
+        movingButton1.addEventListener('click', () => {
+            document.querySelector(".model").classList.add('show');
+        })
+        movingButton1.addEventListener('mouseover', () => {
+
+            movingButton.style.position = "relative";
+            movingButton.style.left = 0;
+            movingButton.style.top = 0;
+            movingButton.style.left = originalPosition.left;
+            movingButton.style.top = originalPosition.top;
+
+        });
+
+        movingButton.addEventListener('touchstart', (event) => {
+            event.preventDefault(); // Prevents the default touch behavior
+            moveButtonRandomly();
+        });
+    
+        movingButton1.addEventListener('touchstart', (event) => {
+        
+            movingButton.style.left = originalPosition.left;
+            movingButton.style.top = originalPosition.top;
+        });
+
+        function moveButtonRandomly() {
+            const buttonRect = movingButton.getBoundingClientRect();
+            const windowWidth = screen.width - buttonRect.width;
+            const windowHeight = screen.height - buttonRect.height;
+
+            const randomX = Math.min(Math.floor(Math.random() * windowWidth), windowWidth);
+            const randomY = Math.min(Math.floor(Math.random() * windowHeight, windowHeight));
+            movingButton.style.position = "absolute";
+            movingButton.style.left = `${Math.random() * 100}%`;
+            movingButton.style.top = `${Math.random() * 100}%`;
+        }
+
+        document.getElementById("close").onclick = function(){
+            document.querySelector(".model").classList.remove('show');
+        }
+    </script>
+</body>
+
+</html>
